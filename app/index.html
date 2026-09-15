@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="健幸五輪モデルに基づく健康長寿セルフチェック、PHRダッシュボード、教育コンテンツ、地域資源マッチングを統合したWebアプリケーション">
+  <meta name="theme-color" content="#1B7A4E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>実現健康長寿アプリ</title>
+  <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       Top Header
+       ============================================================ -->
+  <header class="top-header">
+    <div class="top-header__logo">
+      <div class="top-header__logo-icon">🌿</div>
+      <div>
+        <div class="top-header__title">実現健康長寿</div>
+        <div class="top-header__subtitle">健幸五輪モデル</div>
+      </div>
+    </div>
+    <div class="top-header__actions">
+      <button class="btn btn--ghost btn--icon" id="btn-theme-toggle" title="テーマ切替" aria-label="テーマ切替">
+        🌙
+      </button>
+      <button class="btn btn--ghost btn--icon" id="btn-settings" title="設定" aria-label="設定">
+        ⚙️
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       Main Content Area (Pages)
+       ============================================================ -->
+  <main class="app-container">
+
+    <!-- Home Page -->
+    <div class="page" id="page-home">
+      <div class="home-content"></div>
+    </div>
+
+    <!-- Self Check Page -->
+    <div class="page" id="page-selfcheck">
+      <div class="selfcheck-content"></div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div class="page" id="page-dashboard">
+      <div class="dashboard-content"></div>
+    </div>
+
+    <!-- Education Page -->
+    <div class="page" id="page-education">
+      <div class="education-content"></div>
+    </div>
+
+    <!-- Community Page -->
+    <div class="page" id="page-community">
+      <div class="community-content"></div>
+    </div>
+
+    <!-- Settings Page -->
+    <div class="page" id="page-settings">
+      <div class="settings-content"></div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================
+       Bottom Navigation
+       ============================================================ -->
+  <nav class="bottom-nav" aria-label="メインナビゲーション">
+    <button class="bottom-nav__item" data-page="home" aria-label="ホーム">
+      <span class="bottom-nav__icon">🏠</span>
+      <span class="bottom-nav__label">ホーム</span>
+    </button>
+    <button class="bottom-nav__item" data-page="selfcheck" aria-label="セルフチェック">
+      <span class="bottom-nav__icon">📊</span>
+      <span class="bottom-nav__label">チェック</span>
+    </button>
+    <button class="bottom-nav__item" data-page="dashboard" aria-label="ダッシュボード">
+      <span class="bottom-nav__icon">📈</span>
+      <span class="bottom-nav__label">記録</span>
+    </button>
+    <button class="bottom-nav__item" data-page="education" aria-label="学びの道">
+      <span class="bottom-nav__icon">📚</span>
+      <span class="bottom-nav__label">学ぶ</span>
+    </button>
+    <button class="bottom-nav__item" data-page="community" aria-label="つながり">
+      <span class="bottom-nav__icon">🤝</span>
+      <span class="bottom-nav__label">つながり</span>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       Scripts
+       ============================================================ -->
+  <script src="scripts/store.js?v=2"></script>
+  <script src="scripts/router.js?v=2"></script>
+  <script src="scripts/selfcheck.js?v=2"></script>
+  <script src="scripts/dashboard.js?v=2"></script>
+  <script src="scripts/education.js?v=2"></script>
+  <script src="scripts/community.js?v=2"></script>
+
+  <script>
+    /**
+     * 実現健康長寿アプリ — Main Application Entry
+     */
+    (function App() {
+      'use strict';
+
+      // ============================================================
+      // Initialize Store
+      // ============================================================
+      Store.init();
+
+      // ============================================================
+      // Home Page Renderer
+      // ============================================================
+      function renderHome(container) {
+        const latestResult = Store.get('selfCheck.latestResult');
+        const todayLog = Store.get(`dailyLogs.${Store.today()}`) || {};
+        const completedLessons = (Store.get('education.completedLessons') || []).length;
+        const totalLessons = Education.lessons.length;
+
+        const circumference = 2 * Math.PI * 70;
+        const kenkoIndex = latestResult ? latestResult.kenkoIndex : 0;
+        const dashOffset = circumference - (kenkoIndex / 100) * circumference;
+        const gradeColor = latestResult ? latestResult.grade.color : 'var(--color-text-tertiary)';
+
+        container.innerHTML = `
+          <div class="home animate-fade">
+            <!-- Hero: Kenko Index Summary -->
+            <div class="card card--primary mb-6" style="text-align: center; padding: var(--space-8) var(--space-6);">
+              ${latestResult ? `
+                <div class="score-ring" style="width: 160px; height: 160px; margin: 0 auto var(--space-4);">
+                  <svg class="score-ring__svg" viewBox="0 0 160 160">
+                    <circle class="score-ring__bg" cx="80" cy="80" r="70" style="stroke: rgba(255,255,255,0.2);"></circle>
+                    <circle class="score-ring__progress" cx="80" cy="80" r="70"
+                      stroke-dasharray="${circumference}"
+                      stroke-dashoffset="${dashOffset}"
+                      style="stroke: #fff;">
+                    </circle>
+                  </svg>
+                  <div class="score-ring__value">
+                    <div class="score-ring__number" style="color: #fff; font-size: var(--text-3xl);">${kenkoIndex}</div>
+                    <div class="score-ring__label" style="color: rgba(255,255,255,0.8);">健幸指数</div>
+                  </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.9); font-size: var(--text-sm);">
+                  ランク ${latestResult.grade.grade} — ${latestResult.grade.label}
+                </p>
+                <p style="color: rgba(255,255,255,0.7); font-size: var(--text-xs); margin-top: var(--space-1);">
+                  最終チェック: ${new Date(latestResult.date).toLocaleDateString('ja-JP')}
+                </p>
+              ` : `
+                <div style="font-size: 3rem; margin-bottom: var(--space-4);">🌿</div>
+                <h2 style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-3);">
+                  ようこそ
+                </h2>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: var(--space-6); line-height: var(--leading-relaxed);">
+                  健幸五輪モデルに基づいて<br>あなたの健康長寿度を診断しましょう
+                </p>
+                <button class="btn btn--lg" id="home-start-check"
+                  style="background: rgba(255,255,255,0.2); color: #fff; border: 1.5px solid rgba(255,255,255,0.4); backdrop-filter: blur(8px);">
+                  ✨ セルフチェックを始める
+                </button>
+              `}
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="section">
+              <div class="section__header">
+                <h3 class="section__title">今日のアクション</h3>
+              </div>
+              <div class="stat-grid">
+                <div class="stat-card" style="cursor: pointer;" onclick="Router.navigate('dashboard')">
+                  <div class="stat-card__icon">🚶</div>
+                  <div class="stat-card__value">${todayLog.steps || '—'}</div>
+                  <div class="stat-card__label">歩数</div>
+                </div>
+                <div class="stat-card" style="cursor: pointer;" onclick="Router.navigate('dashboard')">
+                  <div class="stat-card__icon">😴</div>
+                  <div class="stat-card__value">${todayLog.sleepHours || '—'}</div>
+                  <div class="stat-card__label">睡眠</div>
+                </div>
+                <div class="stat-card" style="cursor: pointer;" onclick="Router.navigate('dashboard')">
+                  <div class="stat-card__icon">🥗</div>
+                  <div class="stat-card__value">${todayLog.vegetableServings || '—'}</div>
+                  <div class="stat-card__label">野菜</div>
+                </div>
+                <div class="stat-card" style="cursor: pointer;" onclick="Router.navigate('dashboard')">
+                  <div class="stat-card__icon">🤝</div>
+                  <div class="stat-card__value">${todayLog.socialOutings || '—'}</div>
+                  <div class="stat-card__label">社会参加</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Five Rings Summary (if result exists) -->
+            ${latestResult ? `
+              <div class="section">
+                <div class="section__header">
+                  <h3 class="section__title">五輪スコア</h3>
+                  <span class="section__action" onclick="Router.navigate('selfcheck')">詳細 →</span>
+                </div>
+                <div class="card">
+                  ${Object.entries(latestResult.ringScores).map(([ring, score]) => `
+                    <div class="flex items-center gap-3 mb-3">
+                      <span style="font-size: var(--text-lg); width: 28px;">${SelfCheck.RING_ICONS[ring]}</span>
+                      <span style="font-size: var(--text-sm); width: 100px; font-weight: 500;">${SelfCheck.RING_NAMES[ring]}</span>
+                      <div class="progress-bar" style="flex: 1; height: 6px;">
+                        <div class="progress-bar__fill" style="width: ${score}%; background: var(--ring-${ring});"></div>
+                      </div>
+                      <span style="font-size: var(--text-sm); font-weight: 600; width: 36px; text-align: right;">${score}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Learning Progress -->
+            <div class="section">
+              <div class="section__header">
+                <h3 class="section__title">📚 学習の進捗</h3>
+                <span class="section__action" onclick="Router.navigate('education')">すべて見る →</span>
+              </div>
+              <div class="card">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-muted">${completedLessons} / ${totalLessons} レッスン完了</span>
+                  <span class="text-sm" style="font-weight: 600;">${Math.round((completedLessons / totalLessons) * 100)}%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-bar__fill" style="width: ${(completedLessons / totalLessons) * 100}%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="section">
+              <div class="section__header">
+                <h3 class="section__title">クイックリンク</h3>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3);">
+                <div class="card" style="cursor: pointer; text-align: center; padding: var(--space-4);" onclick="Router.navigate('selfcheck')">
+                  <div style="font-size: var(--text-2xl); margin-bottom: var(--space-2);">📊</div>
+                  <div style="font-weight: 600; font-size: var(--text-sm);">セルフチェック</div>
+                </div>
+                <div class="card" style="cursor: pointer; text-align: center; padding: var(--space-4);" onclick="Router.navigate('community')">
+                  <div style="font-size: var(--text-2xl); margin-bottom: var(--space-2);">🤝</div>
+                  <div style="font-weight: 600; font-size: var(--text-sm);">つながりマップ</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // CTA button for first-time users
+        document.getElementById('home-start-check')?.addEventListener('click', () => {
+          Router.navigate('selfcheck');
+        });
+      }
+
+      // ============================================================
+      // Settings Page Renderer
+      // ============================================================
+      function renderSettings(container) {
+        const profile = Store.get('profile') || {};
+        const settings = Store.get('settings') || {};
+
+        container.innerHTML = `
+          <div class="settings animate-fade" style="max-width: 600px; margin: 0 auto;">
+            <h2 style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-6);">⚙️ 設定</h2>
+
+            <!-- Profile -->
+            <div class="card mb-6">
+              <h3 class="card__title mb-4">プロフィール</h3>
+              <div class="form-group">
+                <label class="form-label" for="settings-name">お名前</label>
+                <input type="text" class="form-input" id="settings-name" value="${profile.name || ''}" placeholder="ニックネーム">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="settings-age">年齢</label>
+                <input type="number" class="form-input" id="settings-age" value="${profile.age || ''}" placeholder="例: 65" min="10" max="120">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="settings-gender">性別</label>
+                <select class="form-input" id="settings-gender">
+                  <option value="">選択してください</option>
+                  <option value="male" ${profile.gender === 'male' ? 'selected' : ''}>男性</option>
+                  <option value="female" ${profile.gender === 'female' ? 'selected' : ''}>女性</option>
+                  <option value="other" ${profile.gender === 'other' ? 'selected' : ''}>その他</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="settings-prefecture">お住まいの都道府県</label>
+                <select class="form-input" id="settings-prefecture">
+                  <option value="">選択してください</option>
+                  ${['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'].map(p =>
+                    `<option value="${p}" ${profile.prefecture === p ? 'selected' : ''}>${p}</option>`
+                  ).join('')}
+                </select>
+              </div>
+              <button class="btn btn--primary btn--full" id="save-profile">プロフィールを保存</button>
+            </div>
+
+            <!-- Display Settings -->
+            <div class="card mb-6">
+              <h3 class="card__title mb-4">表示設定</h3>
+              <div class="form-group">
+                <label class="form-label">テーマ</label>
+                <div class="tabs" style="margin-bottom: 0;">
+                  <button class="tab ${settings.theme === 'light' ? 'active' : ''}" data-theme-choice="light">☀️ ライト</button>
+                  <button class="tab ${settings.theme === 'dark' ? 'active' : ''}" data-theme-choice="dark">🌙 ダーク</button>
+                  <button class="tab ${settings.theme === 'auto' ? 'active' : ''}" data-theme-choice="auto">🔄 自動</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">文字サイズ</label>
+                <div class="tabs" style="margin-bottom: 0;">
+                  <button class="tab ${settings.fontSize === 'normal' ? 'active' : ''}" data-fontsize="normal">標準</button>
+                  <button class="tab ${settings.fontSize === 'large' ? 'active' : ''}" data-fontsize="large">大きめ</button>
+                  <button class="tab ${settings.fontSize === 'xlarge' ? 'active' : ''}" data-fontsize="xlarge">特大</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="card mb-6">
+              <h3 class="card__title mb-4">データ管理</h3>
+              <div class="flex flex-col gap-3">
+                <button class="btn btn--secondary btn--full" id="export-data">📥 データをエクスポート</button>
+                <button class="btn btn--secondary btn--full" id="import-data">📤 データをインポート</button>
+                <input type="file" id="import-file" accept=".json" style="display: none;">
+                <button class="btn btn--ghost btn--full" id="reset-data" style="color: var(--color-danger);">🗑️ すべてのデータをリセット</button>
+              </div>
+            </div>
+
+            <!-- About -->
+            <div class="card text-center" style="background: var(--color-bg-alt);">
+              <p class="text-sm text-muted">
+                実現健康長寿アプリ v1.0<br>
+                健幸五輪モデル（KENKŌ GORIN Model）に基づく<br>
+                セルフチェック・PHR・教育・社会的処方マッチング統合ツール
+              </p>
+            </div>
+          </div>
+        `;
+
+        // Save profile
+        document.getElementById('save-profile')?.addEventListener('click', () => {
+          Store.update('profile', {
+            name: document.getElementById('settings-name').value,
+            age: Number(document.getElementById('settings-age').value) || null,
+            gender: document.getElementById('settings-gender').value,
+            prefecture: document.getElementById('settings-prefecture').value,
+          });
+          alert('プロフィールを保存しました');
+        });
+
+        // Theme toggle
+        container.querySelectorAll('[data-theme-choice]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            Store.set('settings.theme', btn.dataset.themeChoice);
+            Store.init(); // Re-apply settings
+            renderSettings(container);
+          });
+        });
+
+        // Font size
+        container.querySelectorAll('[data-fontsize]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            Store.set('settings.fontSize', btn.dataset.fontsize);
+            Store.init();
+            renderSettings(container);
+          });
+        });
+
+        // Export
+        document.getElementById('export-data')?.addEventListener('click', () => {
+          const data = Store.exportData();
+          const blob = new Blob([data], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `kenko_data_${Store.today()}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+
+        // Import
+        document.getElementById('import-data')?.addEventListener('click', () => {
+          document.getElementById('import-file').click();
+        });
+
+        document.getElementById('import-file')?.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              const success = Store.importData(ev.target.result);
+              if (success) {
+                alert('データをインポートしました');
+                location.reload();
+              } else {
+                alert('インポートに失敗しました。ファイル形式を確認してください。');
+              }
+            };
+            reader.readAsText(file);
+          }
+        });
+
+        // Reset
+        document.getElementById('reset-data')?.addEventListener('click', () => {
+          if (confirm('すべてのデータを削除しますか？この操作は取り消せません。')) {
+            Store.reset();
+            location.reload();
+          }
+        });
+      }
+
+      // ============================================================
+      // Register Routes
+      // ============================================================
+      Router.register('home', {
+        title: 'ホーム',
+        onEnter: () => renderHome(document.querySelector('#page-home .home-content')),
+      });
+
+      Router.register('selfcheck', {
+        title: 'セルフチェック',
+        onEnter: () => SelfCheck.renderIntro(document.querySelector('#page-selfcheck .selfcheck-content')),
+      });
+
+      Router.register('dashboard', {
+        title: 'ダッシュボード',
+        onEnter: () => Dashboard.render(document.querySelector('#page-dashboard .dashboard-content')),
+      });
+
+      Router.register('education', {
+        title: '学びの道',
+        onEnter: () => Education.render(document.querySelector('#page-education .education-content')),
+      });
+
+      Router.register('community', {
+        title: 'つながりマップ',
+        onEnter: () => Community.render(document.querySelector('#page-community .community-content')),
+      });
+
+      Router.register('settings', {
+        title: '設定',
+        onEnter: () => renderSettings(document.querySelector('#page-settings .settings-content')),
+      });
+
+      // ============================================================
+      // Navigation Event Listeners
+      // ============================================================
+      document.querySelectorAll('.bottom-nav__item').forEach(item => {
+        item.addEventListener('click', () => {
+          Router.navigate(item.dataset.page);
+        });
+      });
+
+      // Settings button
+      document.getElementById('btn-settings')?.addEventListener('click', () => {
+        Router.navigate('settings');
+      });
+
+      // Theme toggle
+      document.getElementById('btn-theme-toggle')?.addEventListener('click', () => {
+        const current = Store.get('settings.theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        Store.set('settings.theme', next);
+        Store.init();
+        const btn = document.getElementById('btn-theme-toggle');
+        if (btn) btn.textContent = next === 'dark' ? '☀️' : '🌙';
+      });
+
+      // ============================================================
+      // Initialize Router
+      // ============================================================
+      Router.init('home');
+
+      // Set initial theme button state
+      const currentTheme = Store.get('settings.theme') || 'light';
+      const themeBtn = document.getElementById('btn-theme-toggle');
+      if (themeBtn) themeBtn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+    })();
+  </script>
+
+</body>
+</html>
