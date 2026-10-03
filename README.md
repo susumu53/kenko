@@ -95,6 +95,21 @@ python -m http.server 8000
 
 ---
 
+## 🎓 オンライン受講・認定システム（note ハイブリッド版）
+
+note（有料マガジン）＋ YouTube（限定公開）＋ Google Forms（修了試験）＋ 自作修了証発行アプリを統合したオンライン受講システムです。
+
+- **note 公式講座ページ:** [https://note.com/hero_as_a_hobbty](https://note.com/hero_as_a_hobbty)
+- **修了証発行Webアプリ:** [`app/certificate/index.html`](./app/certificate/index.html)
+- **YouTubeアップロード台帳（19本）:** [`docs/youtube-upload-metadata.md`](./docs/youtube-upload-metadata.md)
+- **note有料コース原稿パッケージ:** [`docs/note-course-articles-draft.md`](./docs/note-course-articles-draft.md)
+- **note集客用無料記事（5本）:** [`docs/note-free-articles-draft.md`](./docs/note-free-articles-draft.md)
+- **修了試験問題案（45問）:** [`docs/quiz-questions-draft.md`](./docs/quiz-questions-draft.md)
+- **システム実施・構築記録:** [`docs/SYSTEM_IMPLEMENTATION_RECORD.md`](./docs/SYSTEM_IMPLEMENTATION_RECORD.md)
+- **タスクトラッカー:** [`docs/plans/task.md`](./docs/plans/task.md)
+
+---
+
 ## 📖 理論ドキュメント
 
 本アプリの基盤となる詳細な学術的・政策的理論体系は、リポジトリ内の [健康長寿の理論と取り組み.md](./健康長寿の理論と取り組み.md) をご参照ください。

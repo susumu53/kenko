@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>健康長寿アドバイザー資格 ― 制度ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F1E4;
+    --bg-alt:#EEE5CF;
+    --card:#FBF8EF;
+    --ink:#26312A;
+    --ink-soft:#5A6259;
+    --line:#D9CCA8;
+    --moss-1:#A9C08B;
+    --moss-2:#6E8E5C;
+    --moss-3:#4B6B41;
+    --moss-4:#2F4A31;
+    --kaki:#C1793C;
+    --kaki-soft:#EBCB9C;
+    --kaki-deep:#96541F;
+    --danger:#A64B3B;
+    --shadow: rgba(43,42,20,0.12);
+    --focus:#3F5941;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg:#1B211B;
+      --bg-alt:#222A21;
+      --card:#242C23;
+      --ink:#ECE7D6;
+      --ink-soft:#B7BEAE;
+      --line:#3A4438;
+      --moss-1:#6E8E5C;
+      --moss-2:#8FAD76;
+      --moss-3:#A9C08B;
+      --moss-4:#C7D8AE;
+      --kaki:#E0A165;
+      --kaki-soft:#4A3A24;
+      --kaki-deep:#F0C08C;
+      --danger:#E08A78;
+      --shadow: rgba(0,0,0,0.4);
+      --focus:#C7D8AE;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B211B;
+    --bg-alt:#222A21;
+    --card:#242C23;
+    --ink:#ECE7D6;
+    --ink-soft:#B7BEAE;
+    --line:#3A4438;
+    --moss-1:#6E8E5C;
+    --moss-2:#8FAD76;
+    --moss-3:#A9C08B;
+    --moss-4:#C7D8AE;
+    --kaki:#E0A165;
+    --kaki-soft:#4A3A24;
+    --kaki-deep:#F0C08C;
+    --danger:#E08A78;
+    --shadow: rgba(0,0,0,0.4);
+    --focus:#C7D8AE;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif;
+    font-size:17px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:"Shippori Mincho B1", serif;
+    font-weight:700;
+    color:var(--ink);
+    margin:0 0 .5em;
+    line-height:1.4;
+  }
+  a{color:var(--moss-4);}
+  :root[data-theme="dark"] a, :root:not([data-theme="light"]) a { color: var(--moss-3); }
+  button{font-family:inherit;}
+  *:focus-visible{outline:3px solid var(--focus); outline-offset:2px;}
+
+  /* ---------- layout shell ---------- */
+  .app-header{
+    position:sticky; top:0; z-index:40;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .header-top{
+    max-width:920px; margin:0 auto;
+    padding:22px 20px 10px;
+    display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  }
+  .brand-mark{
+    font-size:1.9rem;
+    display:inline-block;
+    transform: translateY(2px);
+  }
+  .header-top h1{ font-size:1.35rem; margin:0; letter-spacing:.02em;}
+  .header-sub{ color:var(--ink-soft); font-size:.85rem; margin-left:auto; white-space:nowrap;}
+
+  nav.tabs{
+    max-width:920px; margin:0 auto;
+    display:flex; gap:4px; padding:0 14px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{
+    flex:0 0 auto;
+    background:none; border:none;
+    color:var(--ink-soft);
+    font-size:.95rem;
+    padding:12px 14px 14px;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    white-space:nowrap;
+  }
+  nav.tabs button.active{
+    color:var(--moss-4);
+    border-bottom-color:var(--kaki);
+    font-weight:700;
+  }
+  :root[data-theme="dark"] nav.tabs button.active, :root:not([data-theme="light"]) nav.tabs button.active{ color:var(--moss-3); }
+
+  main{max-width:920px; margin:0 auto; padding:28px 20px 90px;}
+  .panel{display:none;}
+  .panel.active{display:block; animation:fadeIn .35s ease;}
+  @media (prefers-reduced-motion: reduce){ .panel.active{animation:none;} }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:62ch;}
+
+  /* ---------- hero (overview) ---------- */
+  .hero{
+    padding:6px 0 30px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:30px;
+  }
+  .hero h2{font-size:2rem; max-width:14ch;}
+  .gap-stat{
+    display:flex; gap:28px; margin:26px 0 8px; flex-wrap:wrap;
+  }
+  .gap-stat .num{font-family:"Shippori Mincho B1",serif; font-size:2.5rem; color:var(--kaki-deep); font-weight:800; line-height:1;}
+  :root[data-theme="dark"] .gap-stat .num, :root:not([data-theme="light"]) .gap-stat .num { color: var(--kaki); }
+  .gap-stat .lab{font-size:.85rem; color:var(--ink-soft); margin-top:6px;}
+
+  .steps3{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:26px 0;
+  }
+  @media (max-width:640px){ .steps3{grid-template-columns:1fr;} }
+  .step-card{
+    background:var(--card); border:1px solid var(--line); border-radius:4px;
+    padding:18px 18px 20px; position:relative;
+  }
+  .step-card .step-n{
+    font-family:"Shippori Mincho B1",serif; color:var(--moss-2); font-weight:800; font-size:1.6rem;
+  }
+  .step-card h4{font-size:1.02rem; margin:6px 0 6px;}
+  .step-card p{margin:0; color:var(--ink-soft); font-size:.92rem;}
+  .steps3 .arrow{display:none;}
+  @media (min-width:641px){
+    .step-card:not(:last-child)::after{
+      content:"→"; position:absolute; right:-19px; top:50%; transform:translateY(-50%);
+      color:var(--kaki); font-size:1.2rem;
+    }
+  }
+
+  table{border-collapse:collapse; width:100%; margin:14px 0 22px; font-size:.94rem;}
+  caption{caption-side:top; text-align:left; color:var(--ink-soft); font-size:.85rem; margin-bottom:6px;}
+  th,td{border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--bg-alt); font-weight:700;}
+  .table-wrap{overflow-x:auto; margin:14px 0 22px; -webkit-overflow-scrolling:touch;}
+  .table-wrap table{margin:0;}
+
+  .section-block{margin:38px 0;}
+  .section-block h3{font-size:1.3rem; border-bottom:2px solid var(--moss-1); padding-bottom:8px;}
+
+  ul.plain{margin:0; padding-left:1.2em;}
+  ul.plain li{margin-bottom:6px;}
+
+  .ethics-list{list-style:none; margin:0; padding:0;}
+  .ethics-list li{
+    display:flex; gap:14px; padding:12px 0; border-bottom:1px dashed var(--line);
+  }
+  .ethics-list li:last-child{border-bottom:none;}
+  .ethics-list .n{
+    font-family:"Shippori Mincho B1",serif; color:var(--kaki-deep); font-weight:800; flex:0 0 auto;
+  }
+  :root[data-theme="dark"] .ethics-list .n, :root:not([data-theme="light"]) .ethics-list .n{ color:var(--kaki); }
+
+  /* ---------- accordion (theory / faq) ---------- */
+  .accordion-item{
+    border:1px solid var(--line); border-radius:4px; margin-bottom:10px; background:var(--card);
+    overflow:hidden;
+  }
+  .accordion-item > button{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:16px 18px; display:flex; align-items:center; gap:12px;
+    color:var(--ink); font-size:1rem;
+  }
+  .accordion-item > button .chnum{
+    font-family:"Shippori Mincho B1",serif; color:var(--moss-2); font-weight:800; font-size:1rem; flex:0 0 auto;
+  }
+  .accordion-item > button .chtitle{flex:1; font-weight:700;}
+  .accordion-item > button .chev{
+    flex:0 0 auto; transition:transform .25s ease; color:var(--ink-soft); font-size:.85rem;
+  }
+  .accordion-item.open > button .chev{transform:rotate(180deg);}
+  .accordion-body{
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+  }
+  .accordion-item.open .accordion-body{max-height:2400px;}
+  .accordion-inner{padding:0 18px 20px; color:var(--ink-soft); font-size:.96rem;}
+  .accordion-inner ul{margin:8px 0; padding-left:1.2em;}
+  .accordion-inner li{margin-bottom:6px;}
+  .check-box{
+    margin-top:14px; background:var(--bg-alt); border-left:3px solid var(--kaki);
+    padding:12px 14px; border-radius:2px; font-size:.9rem; color:var(--ink);
+  }
+  .check-box b{color:var(--kaki-deep); display:block; margin-bottom:2px; font-weight:700;}
+  :root[data-theme="dark"] .check-box b, :root:not([data-theme="light"]) .check-box b{color:var(--kaki);}
+
+  /* ---------- curriculum ---------- */
+  .level-switch{display:flex; gap:8px; margin:18px 0 22px; flex-wrap:wrap;}
+  .level-switch button{
+    border:1px solid var(--line); background:var(--card); color:var(--ink-soft);
+    padding:10px 16px; border-radius:20px; cursor:pointer; font-size:.9rem;
+  }
+  .level-switch button.active{
+    background:var(--moss-3); border-color:var(--moss-3); color:#F6F1E4; font-weight:700;
+  }
+  .level-summary{
+    display:flex; gap:22px; flex-wrap:wrap; padding:16px 18px; background:var(--bg-alt);
+    border-radius:4px; margin-bottom:22px; font-size:.88rem; color:var(--ink-soft);
+  }
+  .level-summary strong{color:var(--ink); display:block; font-size:1rem; margin-bottom:2px;}
+  .session-card{
+    border:1px solid var(--line); border-radius:4px; padding:16px 18px; margin-bottom:12px; background:var(--card);
+  }
+  .session-card h4{font-size:.98rem; margin-bottom:8px; display:flex; gap:10px; align-items:baseline;}
+  .session-card h4 .sn{color:var(--kaki-deep); font-weight:800; flex:0 0 auto;}
+  :root[data-theme="dark"] .session-card h4 .sn, :root:not([data-theme="light"]) .session-card h4 .sn{color:var(--kaki);}
+  .session-card .meta{font-size:.82rem; color:var(--ink-soft); margin-bottom:8px;}
+  .session-card ul{margin:0 0 8px; padding-left:1.2em; font-size:.92rem;}
+  .session-card li{margin-bottom:4px;}
+  .homework{font-size:.86rem; color:var(--ink-soft); border-top:1px dashed var(--line); padding-top:8px; margin-top:8px;}
+  .homework b{color:var(--moss-4);}
+  :root[data-theme="dark"] .homework b, :root:not([data-theme="light"]) .homework b{color:var(--moss-3);}
+  .requirement-box{
+    margin-top:18px; background:var(--bg-alt); padding:14px 16px; border-radius:4px; font-size:.9rem;
+  }
+
+  /* ---------- tools ---------- */
+  .tool-card{
+    border:1px solid var(--line); border-radius:4px; padding:22px; background:var(--card); margin-bottom:30px;
+  }
+  .tool-card h3{margin-bottom:4px;}
+  .tool-card .tool-desc{color:var(--ink-soft); font-size:.92rem; margin-bottom:18px;}
+  .p9-item{
+    display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .p9-item:last-of-type{border-bottom:none;}
+  .p9-item .p9-text{flex:1; min-width:200px; font-size:.94rem;}
+  .p9-scale{display:flex; gap:6px;}
+  .p9-scale button{
+    width:64px; padding:8px 4px; border:1px solid var(--line); background:var(--bg);
+    border-radius:20px; cursor:pointer; font-size:.8rem; color:var(--ink-soft);
+  }
+  .p9-scale button.sel{background:var(--moss-3); border-color:var(--moss-3); color:#F6F1E4; font-weight:700;}
+  .p9-total{
+    display:flex; justify-content:space-between; align-items:center; margin-top:18px;
+    padding-top:16px; border-top:2px solid var(--moss-1);
+  }
+  .p9-total .score{font-family:"Shippori Mincho B1",serif; font-size:2rem; color:var(--moss-4); font-weight:800;}
+  :root[data-theme="dark"] .p9-total .score, :root:not([data-theme="light"]) .p9-total .score{color:var(--moss-3);}
+  .btn{
+    background:var(--kaki); color:#fff; border:none; padding:11px 20px; border-radius:20px;
+    cursor:pointer; font-size:.92rem; font-weight:700;
+  }
+  .btn:hover{background:var(--kaki-deep);}
+  .btn.ghost{
+    background:none; color:var(--ink-soft); border:1px solid var(--line);
+  }
+  .btn.ghost:hover{color:var(--ink); border-color:var(--ink-soft);}
+  .history-list{margin-top:16px;}
+  .history-row{
+    display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed var(--line);
+    font-size:.88rem; color:var(--ink-soft);
+  }
+  .history-row .bar-wrap{flex:1; max-width:220px; height:8px; background:var(--bg-alt); border-radius:4px; margin:0 14px; overflow:hidden;}
+  .history-row .bar{height:100%; background:var(--moss-2); border-radius:4px;}
+  .empty-note{color:var(--ink-soft); font-size:.88rem; font-style:italic;}
+
+  .frailty-item{display:flex; align-items:flex-start; gap:12px; padding:10px 0; cursor:pointer;}
+  .frailty-item input{margin-top:5px; width:18px; height:18px; accent-color:var(--moss-3);}
+  .frailty-item span{font-size:.95rem;}
+  .frailty-result{
+    margin-top:16px; padding:16px 18px; border-radius:4px; font-size:.94rem; display:none;
+  }
+  .frailty-result.show{display:block;}
+  .fr-safe{background:var(--bg-alt); border-left:4px solid var(--moss-3);}
+  .fr-pre{background:var(--kaki-soft); border-left:4px solid var(--kaki);}
+  .fr-risk{background:var(--kaki-soft); border-left:4px solid var(--danger); color:var(--ink);}
+  .frailty-result b{display:block; margin-bottom:4px; font-size:1.02rem;}
+
+  /* ---------- glossary ---------- */
+  .search-box{
+    width:100%; padding:12px 16px; border:1px solid var(--line); border-radius:20px;
+    background:var(--card); color:var(--ink); font-size:.95rem; margin-bottom:20px;
+    font-family:inherit;
+  }
+  .glossary-item{
+    padding:14px 0; border-bottom:1px solid var(--line);
+  }
+  .glossary-item dt{font-weight:700; color:var(--moss-4); font-size:1rem;}
+  :root[data-theme="dark"] .glossary-item dt, :root:not([data-theme="light"]) .glossary-item dt{color:var(--moss-3);}
+  .glossary-item dd{margin:4px 0 0; color:var(--ink-soft); font-size:.92rem;}
+
+  footer.app-footer{
+    max-width:920px; margin:40px auto 0; padding:20px 20px 60px; color:var(--ink-soft); font-size:.82rem;
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-top">
+    <span class="brand-mark">🌱</span>
+    <h1>健康長寿アドバイザー資格</h1>
+    <span class="header-sub">制度設計書 兼 公式マニュアル ver.2.0</span>
+  </div>
+  <nav class="tabs" id="tabNav">
+    <button data-panel="overview" class="active">資格の概要</button>
+    <button data-panel="theory">理論を学ぶ</button>
+    <button data-panel="curriculum">講義カリキュラム</button>
+    <button data-panel="tools">実践ツール</button>
+    <button data-panel="glossary">用語集</button>
+    <button data-panel="faq">運用・FAQ</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section class="panel active" id="panel-overview">
+    <div class="hero">
+      <h2>日常のちょっとした行動が、<br>健康寿命を延ばす。</h2>
+      <p class="lede">高価な医療技術や特別な才能ではなく、「日常のちょっとした行動」「人とのつながり」「地域の仕組み」の中に、健康長寿の鍵があることが世界中の研究でわかってきました。</p>
+      <div class="gap-stat">
+        <div><div class="num">約9年</div><div class="lab">男性の平均寿命と健康寿命の乖離</div></div>
+        <div><div class="num">約12年</div><div class="lab">女性の平均寿命と健康寿命の乖離</div></div>
+      </div>
+      <p class="lede" style="font-size:.92rem;">この「乖離」＝日常生活に制限のある不健康な期間を埋めるための人材を育てる資格です。医療行為・診断・治療を行う資格ではありません。</p>
+    </div>
+
+    <div class="section-block">
+      <h3>3つのステップ</h3>
+      <div class="steps3">
+        <div class="step-card"><div class="step-n">1</div><h4>自分自身を整える</h4><p>科学的根拠に基づき、まず自分自身の心身を整える。</p></div>
+        <div class="step-card"><div class="step-n">2</div><h4>身近な人へ伝える</h4><p>家族や友人、身近な人へその知恵を伝え、橋渡しをする。</p></div>
+        <div class="step-card"><div class="step-n">3</div><h4>地域に還元する</h4><p>地域の「通いの場」や活動の担い手・企画者となる。</p></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h3>レベル構成</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>レベル</th><th>正式な名乗り方</th><th>到達目標</th><th>主な役割</th></tr></thead>
+          <tbody>
+            <tr><td>初級</td><td>健康長寿アドバイザー（初級）</td><td>理論の基礎を理解し、自分自身の生活に実践できる</td><td>セルフケア実践者</td></tr>
+            <tr><td>中級</td><td>健康長寿アドバイザー（中級）</td><td>理論を人に伝え、フレイルの兆候に気づき、地域資源へ橋渡しできる</td><td>家族・友人・グループへの助言者、通いの場の世話人</td></tr>
+            <tr><td>上級</td><td>健康長寿アドバイザー（上級・認定講師）</td><td>地域プログラムを企画・運営し、認定講師として指導できる</td><td>通いの場の企画責任者、地域の連携ハブ、講師</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h3>認定フロー</h3>
+      <ol class="plain">
+        <li><b>受講</b> ― 各レベルの講義を受講する</li>
+        <li><b>実践課題の提出</b> ― レベルごとに定められた実践ワーク（チェックシート・記録等）を提出する</li>
+        <li><b>認定試験</b> ― 選択式＋記述式（上級は企画書・模擬講義・口述試問）の試験に合格する</li>
+        <li><b>認定</b> ― 認定証発行、資格名称の使用が可能になる</li>
+        <li><b>更新</b> ― 3年ごとに継続教育（CPD）ポイントの取得により更新する</li>
+      </ol>
+    </div>
+
+    <div class="section-block">
+      <h3>倫理綱領</h3>
+      <ul class="ethics-list">
+        <li><span class="n">01</span><span>診断・治療等の医療行為は行わない。異常を感じた対象者には必ず医療機関の受診を勧める。</span></li>
+        <li><span class="n">02</span><span>特定の商品・サービス・宗教・政治的立場を強要・勧誘しない。</span></li>
+        <li><span class="n">03</span><span>対象者の意思決定を尊重し、本人が「できた」と感じられる関わり方を優先する（エンパワメント）。</span></li>
+        <li><span class="n">04</span><span>知り得た個人情報・健康情報を第三者に漏らさない。</span></li>
+        <li><span class="n">05</span><span>常に最新の科学的知見に学び続ける姿勢を持つ。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ THEORY ============ -->
+  <section class="panel" id="panel-theory">
+    <h2>第1部　理論編</h2>
+    <p class="lede">初級から上級まで、すべての学習者が土台として共有する理論体系です。「なぜそうなのか」を理解した上で行動できることを重視します。</p>
+    <div id="theoryAccordion"></div>
+  </section>
+
+  <!-- ============ CURRICULUM ============ -->
+  <section class="panel" id="panel-curriculum">
+    <h2>第2部　講義カリキュラム</h2>
+    <p class="lede">各回は「講義（インプット）」「ワーク（対話・演習）」「振り返り」の3構成が基本です。毎回、何かを持ち帰って生活・地域で試せることを設計原則としています。</p>
+    <div class="level-switch" id="levelSwitch"></div>
+    <div id="levelSummary"></div>
+    <div id="sessionList"></div>
+  </section>
+
+  <!-- ============ TOOLS ============ -->
+  <section class="panel" id="panel-tools">
+    <h2>実践ツール</h2>
+    <p class="lede">初級・中級の講座で実際に使用するチェックシートを、記録・保存しながら体験できます。記録はこの端末のブラウザにのみ保存されます。</p>
+
+    <div class="tool-card">
+      <h3>付録A　Power9セルフ診断シート</h3>
+      <p class="tool-desc">9項目について自己採点し、4週間続けて変化を確認します。「できている＝2点」「時々できている＝1点」「できていない＝0点」。</p>
+      <div id="p9List"></div>
+      <div class="p9-total">
+        <div>合計点 <span class="score" id="p9Score">0</span> <span style="color:var(--ink-soft); font-size:.9rem;">/ 18点</span></div>
+        <button class="btn" id="p9Save">今日の記録として保存</button>
+      </div>
+      <div class="history-list" id="p9History"></div>
+    </div>
+
+    <div class="tool-card">
+      <h3>付録B　簡易フレイルチェックシート</h3>
+      <p class="tool-desc">該当する項目にチェックを入れてください。</p>
+      <div id="frailtyList"></div>
+      <button class="btn" id="frailtyCheck" style="margin-top:14px;">結果を見る</button>
+      <div class="frailty-result" id="frailtyResult"></div>
+    </div>
+  </section>
+
+  <!-- ============ GLOSSARY ============ -->
+  <section class="panel" id="panel-glossary">
+    <h2>付録C　用語集</h2>
+    <input type="text" class="search-box" id="glossarySearch" placeholder="用語を検索…（例：フレイル）">
+    <dl id="glossaryList"></dl>
+  </section>
+
+  <!-- ============ FAQ / OPERATIONS ============ -->
+  <section class="panel" id="panel-faq">
+    <h2>第3部　資格運用ガイド</h2>
+
+    <div class="section-block">
+      <h3>認定・更新制度</h3>
+      <ul class="plain">
+        <li>認定証（デジタル＋紙）を発行し、有効期間は3年間</li>
+        <li>更新には3年間で継続教育ポイント（CPD）15ポイント以上の取得が必要（講座受講：1回3pt／地域活動への参加・報告：1回2pt／上位レベルの取得：自動的に更新扱い）</li>
+        <li>認定を受けた者は「健康長寿アドバイザー（初級／中級／上級）」の名称を名刺・活動紹介等に使用できる</li>
+        <li>医療資格・国家資格であるかのような誤解を招く表示は禁止</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <h3>運用上のポイント（講師・運営者向け）</h3>
+      <ul class="plain">
+        <li>初級はオンライン受講可。中級・上級はロールプレイ・グループワーク中心のため対面またはビデオ会議を推奨</li>
+        <li>各回冒頭5〜10分は前回の振り返り・宿題共有に充てると定着率が上がる</li>
+        <li>中級・上級では地域が近い者同士でグループを固定すると、卒業後の共同活動につながりやすい</li>
+        <li>講師（上級認定者）は毎回終了後に運営記録（出席・提出物・気づき）を残すことを推奨</li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <h3>よくある質問</h3>
+      <div id="faqAccordion"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  健康長寿アドバイザー資格　制度設計書 兼 公式マニュアル（第2版）をもとに構成。本アプリは学習・制度理解のための参照用ツールであり、医療行為・診断を行うものではありません。
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- DATA ---------------- */
+
+  const theoryChapters = [
+    { n:"第1章", title:"健康長寿とは何か",
+      points:[
+        "平均寿命＝生まれてから死ぬまでの期間の平均。健康寿命＝日常生活に制限のない期間の平均。",
+        "日本ではこの2つに男性約9年・女性約12年の乖離があり、本人のQOL低下と医療・介護費の増大を同時に招く。",
+        "2040年には医療・介護人材が大幅に不足すると推計される一方、健康寿命が延び生活支援の仕組みが整えば必要人材数を大きく抑制できるとも試算されている。",
+        "健康長寿は「個人の頑張り」の問題であると同時に「社会の設計」の問題であり、本資格はこの両面に働きかける人材を育てる。"
+      ],
+      check:"健康寿命と平均寿命の違いを、自分の言葉で家族に説明できますか？"
+    },
+    { n:"第2章", title:"ブルーゾーンに学ぶ「自然に健康になる仕組み」",
+      points:[
+        "世界的長寿地域（沖縄／サルデーニャ／ロマリンダ／ニコヤ半島／イカリア島）の共通点を分析した研究では、寿命への遺伝的影響は2〜3割にとどまり、7〜8割は生活習慣・環境で決まるとされる。",
+        "共通行動特性「Power 9」：自然に動く／目的を持つ／ダウンシフト／腹八分目／植物中心／適量の飲酒／信仰・コミュニティ／家族優先／良い仲間。",
+        "これらを日本の生活に置き換えて学ぶ（例：階段・徒歩を「運動」と捉え直す、豆腐・納豆・雑穀を積極的に、地域行事への参加など）。"
+      ],
+      check:"Power9のうち、自分の生活にすでにあるものはどれか。足りないものはどれか。",
+      extra:{title:"実践ツール：付録Aで自己採点できます", tab:"tools"}
+    },
+    { n:"第3章", title:"老化のしくみを知る（やさしく学ぶ加齢科学）",
+      points:[
+        "近年の医学では個々の病気を別々に治すのではなく「老化そのもの」を緩やかにする考え方（ゲロサイエンス）が広がっている。",
+        "生物学的年齢＝実年齢とは別に体の内側の老化スピードを示す指標（エピジェネティック・クロック等で測定可能に）。",
+        "老化スピードを決める要因のうち遺伝の影響は4割程度で、運動・睡眠などの生活習慣で変えられる部分が大きい。",
+        "老化を緩やかにする薬の研究（メトホルミンを用いたTAME試験など）も進むが、現時点で生活習慣に代わるものではない。"
+      ],
+      check:null,
+      tip:"「老化は一方通行ではなく、日々の生活で速さを変えられる」という事実そのものが、対象者の意欲を引き出す最大のメッセージになる。"
+    },
+    { n:"第4章", title:"「つながり」が健康を決める（健康の社会的決定要因）",
+      points:[
+        "日本老年学的評価研究（JAGES）等の大規模調査から、所得や学歴だけでなく「社会的ネットワークの有無」が健康・認知症リスク・抑うつ傾向を左右する強力な要因であることがわかっている。",
+        "不健康を「本人の意志の弱さ」だけで説明するのは誤り。環境・つながりの有無が大きく影響する。",
+        "スポーツ組織やボランティア参加率が高い地域ほど、転倒・認知症リスクを持つ高齢者の割合が有意に低い。"
+      ],
+      check:null,
+      tip:"説教や指導より先に、「一緒にやる仲間・場」を作ることが最も効果的な介入である。"
+    },
+    { n:"第5章", title:"フレイル予防の三位一体モデル",
+      points:[
+        "フレイル（虚弱）は健康と要介護の中間状態で、適切な働きかけで健康な状態に戻せる（可逆性）のが最大の特徴。",
+        "目安：6か月で2〜3kg以上の体重減少、わけもなく疲れる感覚、歩行速度の低下、週1回以上の運動習慣がない、活動量・社会参加の低下（3項目以上でフレイル、1〜2項目でプレフレイル）。",
+        "三位一体モデル：①栄養＝タンパク質を「ちょい足し」、口腔機能も重要　②運動＝「今より10分多く動く」　③社会参加＝最も重要な入り口。人に会う予定があるから外出し、誰かと食事をするという好循環を生む。"
+      ],
+      check:"3つの柱のうち、なぜ「社会参加」が入り口とされるのか説明できますか。",
+      extra:{title:"実践ツール：付録Bで簡易チェックができます", tab:"tools"}
+    },
+    { n:"第6章", title:"社会的処方と「橋渡し」の視点",
+      points:[
+        "医療機関だけでは解決できない孤独・生きがいの喪失といった課題に対し、薬ではなく「地域とのつながり」を処方する考え方が「社会的処方」。専門職「リンクワーカー」が橋渡し役を担うが、基本姿勢は地域の担い手にも応用できる。",
+        "橋渡しの基本プロセス：①気づく（変化・孤立のサインに気づく）②聴く（評価や指導でなくまず時間をかけて話を聴く）③つなぐ（その人に合う地域資源へ案内する）④見守る（つないで終わりにせず様子を気にかけ続ける）。"
+      ],
+      check:"「指導」と「橋渡し」の違いを、自分の言葉で説明できますか。"
+    },
+    { n:"第7章", title:"デジタルを味方にする（やさしいDX・PHRの理解）",
+      points:[
+        "歩数計アプリ、ウェアラブル端末、健康記録アプリ（PHR）などは「見える化」によって行動のきっかけを作る道具。",
+        "数値の可視化・仲間との競争（ゲーミフィケーション）は健康に関心の薄い層を巻き込む効果がある。",
+        "高齢者にはデジタル機器への苦手意識があるため、使い方に寄り添う伴走支援が普及の鍵になる。"
+      ],
+      check:null
+    },
+    { n:"第8章", title:"国内の先進事例から学ぶ",
+      points:[
+        "長野県：住民ボランティア（保健補導員）による訪問・減塩運動 ― 専門職でなくても住民自身が担い手になれる。",
+        "愛知県武豊町：通いの場をハイリスク者限定でなく全住民に開く（ポピュレーションアプローチ） ― 「誰でも来られる」設計の重要性。",
+        "千葉県市原市：医療専門職・民間企業・行政の連携によるフレイル予防 ― アドバイザーは専門職と住民をつなぐ結節点になれる。",
+        "長崎県佐世保市・東京都台東区：社会的処方、ミュージアム処方 ― 「その人らしい強み」を活かした場づくり。",
+        "広島県神石高原町・神奈川県：デジタル機器・PHRを使った行動変容支援 ― 苦手な人に寄り添うデジタル伴走の価値。"
+      ],
+      check:null
+    }
+  ];
+
+  const curriculum = {
+    "初級": {
+      meta:{回数:"全5回", 時間:"各90分", 総時間:"7.5時間", 期間:"約1〜1.5ヶ月",
+        修了要件:"全回出席＋実践ワーク提出＋初級試験合格（70%以上正答）"},
+      goal:"科学的根拠に基づいた健康長寿の基礎知識を理解し、まず自分自身の生活に実践できる。",
+      sessions:[
+        { title:"オリエンテーション＋健康長寿の基礎とブルーゾーンの知恵", meta:"対応章：第1章・第2章",
+          content:["資格の全体像・倫理綱領の説明（15分）","健康長寿とは何か／健康寿命と平均寿命の乖離（20分）","ブルーゾーンとPower9（30分）","ペアワーク：自分の生活にあるPower9・足りないPower9を話す（15分）","まとめ（10分）"],
+          material:"Power9セルフ診断シート配布・記入開始",
+          homework:"Power9セルフ診断シートの記入を4週間続ける（初回記録）"},
+        { title:"老化のしくみをやさしく知る", meta:"対応章：第3章",
+          content:["生物学的年齢とは何か（20分）","老化科学（ゲロサイエンス）の基本的な考え方（25分）","運動・睡眠が老化速度に与える影響（20分）","グループワーク：「老化は変えられる」を家族にどう伝えるか（15分）","まとめ（10分）"],
+          material:"やさしい用語解説シート",
+          homework:"Power9記録の継続（2週目）"},
+        { title:"「つながり」が健康を決める", meta:"対応章：第4章",
+          content:["健康の社会的決定要因（SDH）とは（20分）","JAGES調査に見るつながりと健康の関係（20分）","孤立のサインとは何か（20分）","ディスカッション：自分の地域にある「つながりの場」を挙げる（20分）","まとめ（10分）"],
+          material:"地域資源メモシート（中級の地域資源マップの下地）",
+          homework:"Power9記録の継続（3週目）"},
+        { title:"フレイル予防の三位一体モデル", meta:"対応章：第5章",
+          content:["フレイルとは何か・可逆性（20分）","三位一体モデル（栄養・運動・社会参加）の詳細（30分）","簡易フレイルチェックシートの使い方（20分）","ワーク：自分自身にフレイルチェックを実施（15分）","まとめ（5分）"],
+          material:"簡易フレイルチェックシート",
+          homework:"Power9記録の完成（4週目・最終）、振り返りメモ（400字）の作成"},
+        { title:"振り返り・行動計画発表・初級認定試験", meta:null,
+          content:["4週間の実践記録・振り返りメモの発表（1人3分程度）（40分）","全体講評（10分）","初級認定試験（選択式20問・60分）","閉講・中級案内（10分）"],
+          material:"実践記録・振り返りメモ（提出）",
+          homework:null}
+      ]
+    },
+    "中級": {
+      meta:{回数:"全6回", 時間:"各120分", 総時間:"12時間", 期間:"約2ヶ月",
+        修了要件:"全回出席＋実践ワーク3点提出＋中級試験合格（選択式75%以上・記述式基準達成）"},
+      goal:"理論を人に分かりやすく伝え、身近な人のフレイルの兆候に気づき、適切な地域資源へ橋渡しできる。地域の通いの場等で世話人・進行役を担える。",
+      note:"※初級修了者が対象。座学に加え、対話・実地ワークの比重が高くなります。",
+      sessions:[
+        { title:"社会的処方と「橋渡し」の視点", meta:"対応章：第6章",
+          content:["社会的処方とは何か・イギリスNHSの事例（25分）","リンクワーカーの役割（20分）","橋渡しの4ステップ：気づく・聴く・つなぐ・見守る（30分）","ロールプレイ導入：指導口調 vs 橋渡し口調の比較体験（35分）","まとめ（10分）"],
+          material:"対話フレーズ集",
+          homework:"家族・知人との日常会話で「聴く」を意識して1回実践し、気づきをメモする"},
+        { title:"傾聴・対話技術の実践演習", meta:null,
+          content:["傾聴の基本技術（相づち・要約・オープンクエスチョン）（30分）","ペアでのロールプレイ実践（40分）","フィードバック・振り返り（30分）","まとめ（20分）"],
+          material:"ロールプレイシナリオ集、傾聴チェックリスト",
+          homework:"提出課題①：身近な人（同意の上）との対話を実施し、記録シートを作成する"},
+        { title:"フレイルチェックの実施と声かけ", meta:null,
+          content:["フレイルチェックの実施手順の詳細（25分）","結果に応じた声かけの言葉選び（傷つけない伝え方）（30分）","デモンストレーション＋ペア実践（45分）","まとめ（20分）"],
+          material:"簡易フレイルチェックシート（他者実施用）",
+          homework:"提出課題②：身近な高齢者1名（同意の上）にフレイルチェックを実施し、レポートを作成する"},
+        { title:"国内先進事例に学ぶ", meta:"対応章：第8章",
+          content:["長野県：住民自治型の減塩運動（20分）","愛知県武豊町：通いの場のポピュレーションアプローチ（25分）","千葉県市原市・佐世保市等：連携型モデル（25分）","グループワーク：自分の地域に応用するなら？（40分）","まとめ（10分）"],
+          material:"事例まとめシート",
+          homework:"地域資源マップの作成を開始（提出課題③の準備）"},
+        { title:"デジタルを味方にする／地域資源マップの完成", meta:"対応章：第7章",
+          content:["DX・PHRのやさしい理解（20分）","デジタルが苦手な人への伴走のコツ（20分）","地域資源マップのワーク・仕上げ（60分）","共有（20分）"],
+          material:"地域資源マップ用テンプレート",
+          homework:"提出課題③：地域資源マップの完成・提出"},
+        { title:"通いの場の企画運営基礎・ケース共有・中級認定試験", meta:null,
+          content:["通いの場の企画運営基礎（場所・告知・進行・継続の工夫）（30分）","提出課題①〜③の共有・相互フィードバック（30分）","中級認定試験（選択式30問＋記述式2問・90分）"],
+          material:"提出課題①〜③（傾聴記録・フレイルチェックレポート・地域資源マップ）",
+          homework:null,
+          extraNote:"記述式評価基準：①傾聴の姿勢が示されているか　②医療行為に踏み込んでいないか　③具体的な地域資源への橋渡しが提案されているか"}
+      ]
+    },
+    "上級": {
+      meta:{回数:"全8回", 時間:"各120分", 総時間:"16時間", 期間:"約3ヶ月",
+        修了要件:"企画書・模擬講義・口述試問の3項目すべてC評価（可）以上"},
+      goal:"地域の実情に合わせて健康長寿プログラムを企画・運営し、初級・中級講座の認定講師として指導できる。産官学の連携先とも対等に対話できる。",
+      note:"※中級修了者が対象。企画・指導・連携のスキル習得に重点を置きます。",
+      sessions:[
+        { title:"先進事例の類型分析", meta:null,
+          content:["3類型（住民自治型／産官学連携型／データ駆動型）の整理（30分）","事例の深掘りディスカッション（60分）","自分の地域はどの類型が向くか検討（30分）"],
+          material:null, homework:"自分の地域の現状分析メモの作成"},
+        { title:"アプローチ設計の思想（ポピュレーション／ハイリスク）", meta:null,
+          content:["ポピュレーションアプローチとハイリスクアプローチの違い（30分）","両者の組み合わせ方（30分）","ワーク：自分の企画対象を仮定して当てはめる（40分）","まとめ（20分）"],
+          material:null, homework:"企画書のターゲット設定案を作成"},
+        { title:"企画書作成基礎", meta:null,
+          content:["企画書の基本構成（25分）","KPI設定の考え方（25分）","企画書ドラフト作成ワーク（50分）","講師フィードバック（20分）"],
+          material:null, homework:"企画書ドラフトの作成継続"},
+        { title:"関係者連携の設計（産官学・地域資源）", meta:null,
+          content:["産官学連携の事例分析（市原市モデル等）（30分）","連携先へのアプローチ方法（30分）","企画書に連携先を組み込むワーク（40分）","まとめ（20分）"],
+          material:null, homework:"企画書に連携設計を反映"},
+        { title:"ファシリテーション技術", meta:null,
+          content:["ファシリテーションの基本技術（発言を引き出す、対立を扱う）（30分）","模擬ファシリテーション演習（60分）","フィードバック（30分）"],
+          material:null, homework:"模擬講義の準備開始"},
+        { title:"講師スキル演習", meta:null,
+          content:["教え方の基本（構成・時間配分・質疑応答対応）（30分）","各自10分の模擬講義リハーサル（60分）","相互フィードバック（30分）"],
+          material:null, homework:"模擬講義の最終調整"},
+        { title:"継続運営の仕組みづくり", meta:null,
+          content:["後継育成・燃え尽き防止の考え方（30分）","記録と振り返りのPDCAサイクル（30分）","企画書に継続の仕組みを反映するワーク（40分）","まとめ（20分）"],
+          material:null, homework:"企画書の最終仕上げ"},
+        { title:"模擬講義・企画書発表・口述試問（上級認定試験）", meta:null,
+          content:["模擬講義発表（1人10分×人数分）","企画書発表・質疑（1人10分×人数分）","口述試問（1人30分、個別実施）"],
+          material:null, homework:null }
+      ],
+      afterNote:{title:"認定講師としての活動範囲", items:["初級・中級講座の講師登壇（機構の教材を使用）","地域での通いの場・プログラムの企画責任者","産官学連携における住民側の窓口役"]}
+    }
+  };
+
+  const glossary = [
+    ["健康寿命","日常生活に制限のない期間の平均"],
+    ["ブルーゾーン","世界的に健康長寿者が多いとされる地域の総称"],
+    ["ゲロサイエンス","老化そのものを研究対象とする学際的な医学分野"],
+    ["フレイル","加齢に伴い心身の活力が低下した、健康と要介護の中間状態"],
+    ["社会的処方","孤立や生きがいの喪失に対し、地域とのつながりを処方する考え方"],
+    ["リンクワーカー","社会的処方において対象者と地域資源をつなぐ専門職"],
+    ["PHR（Personal Health Record）","個人の健康・医療情報を一元管理する仕組み"],
+    ["ポピュレーションアプローチ","ハイリスク者に限定せず、集団全体に働きかける手法"]
+  ];
+
+  const faqs = [
+    { q:"医療や介護の専門資格がなくても取得できますか？", a:"はい。本資格は専門職を対象としたものではなく、一般の方・地域ボランティアの方を主な対象としています。" },
+    { q:"対象者に何かあったら資格保有者の責任になりますか？", a:"本資格は医療行為を行うものではなく、あくまで「気づき・橋渡し・伴走」を行う立場です。異常を感じた場合は速やかに医療機関へつなぐことがルールであり、診断・治療の責任を負うものではありません（別途、活動保険への加入を推奨）。" },
+    { q:"初級から順番に受講しないといけませんか？", a:"原則として初級→中級→上級の順に受講することを推奨しますが、既に地域活動の経験がある方は、事務局の判断で中級からの受講を認める場合があります。" }
+  ];
+
+  const power9Items = [
+    "日常生活の中で自然に体を動かしている",
+    "毎朝起きる目的・楽しみがある",
+    "意識的にリラックスする時間を持っている",
+    "満腹になるまで食べないよう心がけている",
+    "野菜・豆・全粒穀物を中心とした食事をとっている",
+    "お酒は適量を、誰かと楽しんでいる（飲まない場合は満点）",
+    "定期的に参加している集まり・コミュニティがある",
+    "家族との時間を大切にしている",
+    "一緒に健康的な行動をとれる仲間がいる"
+  ];
+
+  const frailtyItems = [
+    "6か月で2〜3kg以上の意図しない体重減少があった",
+    "わけもなく疲れたような感じがする",
+    "以前より歩く速さが遅くなったと感じる",
+    "週に1回も運動をしていない",
+    "外出する機会が減った"
+  ];
+
+  /* ---------------- TAB NAV ---------------- */
+  const tabButtons = document.querySelectorAll('#tabNav button');
+  function showPanel(name){
+    document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id === 'panel-'+name));
+    tabButtons.forEach(b=>b.classList.toggle('active', b.dataset.panel === name));
+    window.scrollTo({top:0, behavior:'instant' in window ? 'instant':'auto'});
+  }
+  tabButtons.forEach(b=> b.addEventListener('click', ()=> showPanel(b.dataset.panel)));
+
+  /* ---------------- THEORY ACCORDION ---------------- */
+  const theoryWrap = document.getElementById('theoryAccordion');
+  theoryChapters.forEach((ch,i)=>{
+    const item = document.createElement('div');
+    item.className = 'accordion-item' + (i===0 ? ' open':'');
+    const pts = ch.points.map(p=>'<li>'+p+'</li>').join('');
+    const checkHtml = ch.check ? `<div class="check-box"><b>理解チェック</b>${ch.check}</div>` : '';
+    const tipHtml = ch.tip ? `<div class="check-box"><b>サポーターとして押さえるポイント</b>${ch.tip}</div>` : '';
+    const extraHtml = ch.extra ? `<div class="check-box"><b>${ch.extra.title}</b><a href="#" data-goto="${ch.extra.tab}">実践ツールを開く →</a></div>` : '';
+    item.innerHTML = `
+      <button type="button">
+        <span class="chnum">${ch.n}</span>
+        <span class="chtitle">${ch.title}</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="accordion-body">
+        <div class="accordion-inner">
+          <ul>${pts}</ul>
+          ${checkHtml}${tipHtml}${extraHtml}
+        </div>
+      </div>`;
+    item.querySelector('button').addEventListener('click', ()=> item.classList.toggle('open'));
+    const gotoLink = item.querySelector('[data-goto]');
+    if(gotoLink){
+      gotoLink.addEventListener('click', (e)=>{ e.preventDefault(); showPanel(gotoLink.dataset.goto); });
+    }
+    theoryWrap.appendChild(item);
+  });
+
+  /* ---------------- CURRICULUM ---------------- */
+  const levelSwitch = document.getElementById('levelSwitch');
+  const levelSummary = document.getElementById('levelSummary');
+  const sessionList = document.getElementById('sessionList');
+  const levelKeys = Object.keys(curriculum);
+  let currentLevel = levelKeys[0];
+
+  levelKeys.forEach(lv=>{
+    const b = document.createElement('button');
+    b.textContent = lv;
+    b.className = lv===currentLevel ? 'active':'';
+    b.addEventListener('click', ()=>{ currentLevel = lv; renderCurriculum(); });
+    levelSwitch.appendChild(b);
+  });
+
+  function renderCurriculum(){
+    Array.from(levelSwitch.children).forEach(b=> b.classList.toggle('active', b.textContent===currentLevel));
+    const lv = curriculum[currentLevel];
+    const m = lv.meta;
+    levelSummary.innerHTML = `
+      <div class="level-summary">
+        <div><strong>${m.回数}</strong>講義回数</div>
+        <div><strong>${m.時間}</strong>1回あたり</div>
+        <div><strong>${m.総時間}</strong>総学習時間</div>
+        <div><strong>${m.期間}</strong>期間の目安</div>
+      </div>
+      <p class="lede" style="font-size:.95rem;">${lv.goal}</p>
+      ${lv.note ? `<p style="color:var(--ink-soft); font-size:.86rem;">${lv.note}</p>`:''}
+    `;
+    sessionList.innerHTML = '';
+    lv.sessions.forEach((s,i)=>{
+      const card = document.createElement('div');
+      card.className = 'session-card';
+      const contentLis = s.content.map(c=>'<li>'+c+'</li>').join('');
+      card.innerHTML = `
+        <h4><span class="sn">第${i+1}回</span> ${s.title}</h4>
+        ${s.meta ? `<div class="meta">${s.meta}</div>`:''}
+        <ul>${contentLis}</ul>
+        ${s.material ? `<div class="meta">教材・ワーク：${s.material}</div>` : ''}
+        ${s.homework ? `<div class="homework"><b>事後課題</b> ${s.homework}</div>` : ''}
+        ${s.extraNote ? `<div class="homework">${s.extraNote}</div>` : ''}
+      `;
+      sessionList.appendChild(card);
+    });
+    const req = document.createElement('div');
+    req.className = 'requirement-box';
+    req.innerHTML = `<b>修了要件：</b>${lv.meta.修了要件}`;
+    sessionList.appendChild(req);
+    if(lv.afterNote){
+      const an = document.createElement('div');
+      an.className = 'requirement-box';
+      an.style.marginTop = '10px';
+      an.innerHTML = `<b>${lv.afterNote.title}</b><ul class="plain" style="margin-top:8px;">${lv.afterNote.items.map(i=>'<li>'+i+'</li>').join('')}</ul>`;
+      sessionList.appendChild(an);
+    }
+  }
+  renderCurriculum();
+
+  /* ---------------- GLOSSARY ---------------- */
+  const glossaryList = document.getElementById('glossaryList');
+  function renderGlossary(filter){
+    glossaryList.innerHTML = '';
+    const f = (filter||'').trim().toLowerCase();
+    glossary.filter(([t,d])=> !f || t.toLowerCase().includes(f) || d.toLowerCase().includes(f))
+      .forEach(([t,d])=>{
+        const div = document.createElement('div');
+        div.className = 'glossary-item';
+        div.innerHTML = `<dt>${t}</dt><dd>${d}</dd>`;
+        glossaryList.appendChild(div);
+      });
+    if(!glossaryList.children.length){
+      glossaryList.innerHTML = '<p class="empty-note">該当する用語が見つかりませんでした。</p>';
+    }
+  }
+  renderGlossary('');
+  document.getElementById('glossarySearch').addEventListener('input', (e)=> renderGlossary(e.target.value));
+
+  /* ---------------- FAQ ---------------- */
+  const faqWrap = document.getElementById('faqAccordion');
+  faqs.forEach(f=>{
+    const item = document.createElement('div');
+    item.className = 'accordion-item';
+    item.innerHTML = `
+      <button type="button">
+        <span class="chtitle">Q. ${f.q}</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-inner">A. ${f.a}</div></div>`;
+    item.querySelector('button').addEventListener('click', ()=> item.classList.toggle('open'));
+    faqWrap.appendChild(item);
+  });
+
+  /* ---------------- TOOL: Power9 ---------------- */
+  const p9List = document.getElementById('p9List');
+  const p9Scores = new Array(power9Items.length).fill(0);
+  const p9ScoreEl = document.getElementById('p9Score');
+
+  function updateP9Total(){
+    const total = p9Scores.reduce((a,b)=>a+b,0);
+    p9ScoreEl.textContent = total;
+  }
+
+  power9Items.forEach((text,i)=>{
+    const row = document.createElement('div');
+    row.className = 'p9-item';
+    row.innerHTML = `
+      <div class="p9-text">${i+1}. ${text}</div>
+      <div class="p9-scale">
+        <button data-v="0" type="button">できて<br>いない</button>
+        <button data-v="1" type="button">時々</button>
+        <button data-v="2" type="button">できて<br>いる</button>
+      </div>`;
+    row.querySelectorAll('.p9-scale button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        p9Scores[i] = parseInt(btn.dataset.v,10);
+        row.querySelectorAll('.p9-scale button').forEach(b=>b.classList.remove('sel'));
+        btn.classList.add('sel');
+        updateP9Total();
+      });
+    });
+    p9List.appendChild(row);
+  });
+
+  function loadP9History(){
+    try{
+      const raw = localStorage.getItem('kencho_p9_history');
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+  function saveP9History(list){
+    try{ localStorage.setItem('kencho_p9_history', JSON.stringify(list)); }catch(e){}
+  }
+  function renderP9History(){
+    const hist = loadP9History();
+    const wrap = document.getElementById('p9History');
+    wrap.innerHTML = '';
+    if(!hist.length){
+      wrap.innerHTML = '<p class="empty-note">まだ記録がありません。上のシートに回答して「今日の記録として保存」を押してください。</p>';
+      return;
+    }
+    hist.slice().reverse().forEach(rec=>{
+      const row = document.createElement('div');
+      row.className = 'history-row';
+      const pct = Math.round((rec.score/18)*100);
+      row.innerHTML = `
+        <span>${rec.date}</span>
+        <div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div>
+        <span>${rec.score} / 18点</span>`;
+      wrap.appendChild(row);
+    });
+  }
+  document.getElementById('p9Save').addEventListener('click', ()=>{
+    const total = p9Scores.reduce((a,b)=>a+b,0);
+    const hist = loadP9History();
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}`;
+    hist.push({date:dateStr, score: total});
+    saveP9History(hist);
+    renderP9History();
+  });
+  renderP9History();
+
+  /* ---------------- TOOL: Frailty check ---------------- */
+  const frailtyList = document.getElementById('frailtyList');
+  const frailtyChecked = new Array(frailtyItems.length).fill(false);
+  frailtyItems.forEach((text,i)=>{
+    const label = document.createElement('label');
+    label.className = 'frailty-item';
+    label.innerHTML = `<input type="checkbox" data-i="${i}"><span>${text}</span>`;
+    label.querySelector('input').addEventListener('change', (e)=>{
+      frailtyChecked[i] = e.target.checked;
+    });
+    frailtyList.appendChild(label);
+  });
+  document.getElementById('frailtyCheck').addEventListener('click', ()=>{
+    const count = frailtyChecked.filter(Boolean).length;
+    const resultEl = document.getElementById('frailtyResult');
+    resultEl.classList.add('show');
+    if(count >= 3){
+      resultEl.className = 'frailty-result show fr-risk';
+      resultEl.innerHTML = `<b>該当項目：${count} 項目 ― フレイルの可能性</b>医療機関・専門職への相談を勧めましょう。`;
+    } else if(count >= 1){
+      resultEl.className = 'frailty-result show fr-pre';
+      resultEl.innerHTML = `<b>該当項目：${count} 項目 ― プレフレイルの可能性</b>三位一体モデル（栄養・運動・社会参加）での生活改善を提案しましょう。`;
+    } else {
+      resultEl.className = 'frailty-result show fr-safe';
+      resultEl.innerHTML = `<b>該当項目：0 項目 ― 健康</b>現状の生活習慣の継続を後押ししましょう。`;
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
