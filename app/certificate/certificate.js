@@ -181,6 +181,13 @@
       }
     }
 
+    // Check Admin access (?admin=1 or ?admin=true)
+    const isAdmin = params.get('admin') === '1' || params.get('admin') === 'true';
+    if (isAdmin) {
+      if ($btnOpenAdmin) $btnOpenAdmin.style.display = 'inline-flex';
+      if ($linkAdminFooter) $linkAdminFooter.style.display = 'inline';
+    }
+
     // Initialize passcode visibility
     updatePasscodeVisibility();
     $inputCourse.addEventListener('change', updatePasscodeVisibility);

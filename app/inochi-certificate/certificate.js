@@ -138,6 +138,16 @@
   function init() {
     initTheme();
     bindEvents();
+    checkAdminAccess();
+  }
+
+  function checkAdminAccess() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === '1' || params.get('admin') === 'true') {
+      if ($btnOpenAdmin) {
+        $btnOpenAdmin.style.display = 'inline-flex';
+      }
+    }
   }
 
   // ============================================================
