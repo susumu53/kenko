@@ -1877,17 +1877,28 @@ input, select, textarea {
    Modals (Consultation & Admin Ledger) - Centered Popup Overlay
    ============================================================ */
 .admin-modal {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  z-index: 99999 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Ensure hidden by default when display:none is set */
+.admin-modal[style*="display: none"],
+.admin-modal[style*="display:none"] {
+  display: none !important;
+}
+
+/* Ensure flex centering when opened */
+.admin-modal[style*="display: flex"],
+.admin-modal[style*="display:flex"] {
   display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 1rem !important;
-  box-sizing: border-box !important;
 }
 
 .admin-modal__backdrop {

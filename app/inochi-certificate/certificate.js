@@ -136,6 +136,8 @@
   // Initialization
   // ============================================================
   function init() {
+    if ($adminModal) $adminModal.style.display = 'none';
+    if ($consultationModal) $consultationModal.style.display = 'none';
     initTheme();
     bindEvents();
     checkAdminAccess();
