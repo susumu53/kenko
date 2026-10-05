@@ -300,6 +300,34 @@ const Education = (() => {
             `;
           }).join('')}
         </div>
+
+        <!-- Official Certifications Section -->
+        <div class="mt-8" style="margin-top: 2rem;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;">
+            🎓 公式認定資格・修了試験
+          </h3>
+          <p class="text-sm text-muted mb-4">学んだ知識を定着させ、公式な認定証（PDF）を即時発行できます。</p>
+
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <!-- Kenko Advisor Exam -->
+            <a href="certificate/index.html" class="card" style="display: flex; align-items: center; justify-content: space-between; text-decoration: none; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-left: 4px solid #1B7A4E; background: var(--color-surface); transition: transform 0.15s ease;">
+              <div>
+                <div style="font-weight: 700; color: #1B7A4E; font-size: 0.95rem;">🌿 健康長寿アドバイザー 修了試験</div>
+                <div class="text-xs text-muted" style="margin-top: 0.25rem;">初級・中級・上級対応 / 合格後PDF公式修了証を即時発行</div>
+              </div>
+              <span style="font-weight: 700; color: #1B7A4E;">受検 ↗</span>
+            </a>
+
+            <!-- Inochi Learning Exam -->
+            <a href="inochi-certificate/index.html" class="card" style="display: flex; align-items: center; justify-content: space-between; text-decoration: none; padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-left: 4px solid #1E3A5F; background: var(--color-surface); transition: transform 0.15s ease;">
+              <div>
+                <div style="font-weight: 700; color: #1E3A5F; font-size: 0.95rem;">🕊️ いのちを学ぶ基礎講座 修了試験</div>
+                <div class="text-xs text-muted" style="margin-top: 0.25rem;">ゲートキーパー × グリーフケア 基礎認定 / 完全無料・全25問</div>
+              </div>
+              <span style="font-weight: 700; color: #1E3A5F;">受検 ↗</span>
+            </a>
+          </div>
+        </div>
       </div>
     `;
 

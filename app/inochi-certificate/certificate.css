@@ -1,44 +1,44 @@
 /* ============================================================
-   修了証発行アプリ — Stylesheet
-   Theme: 和のモダニズム（既存アプリと統一）
+   いのちを学ぶ基礎講座 修了証発行アプリ — Stylesheet
+   Theme: 心に寄り添う静謐と温もり（藍色 ＆ 黄金）
    ============================================================ */
 
-/* --- Google Fonts (inherited from main app) --- */
+/* --- Google Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Noto+Serif+JP:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ============================================================
    CSS Custom Properties (Design Tokens)
    ============================================================ */
 :root {
-  /* --- Color Palette: Nature-inspired (same as main app) --- */
-  --color-primary: #1B7A4E;
-  --color-primary-light: #2DA06A;
-  --color-primary-dark: #145C3A;
-  --color-primary-surface: #E8F5EE;
+  /* --- Color Palette: Calm Indigo & Compassion Amber --- */
+  --color-primary: #1E3A5F;
+  --color-primary-light: #2D5584;
+  --color-primary-dark: #12253E;
+  --color-primary-surface: #EEF4F9;
 
-  --color-secondary: #C17B2E;
-  --color-secondary-light: #D99A4E;
-  --color-secondary-dark: #9A6124;
-  --color-secondary-surface: #FEF4E6;
+  --color-secondary: #C07028;
+  --color-secondary-light: #D9893E;
+  --color-secondary-dark: #8F4E16;
+  --color-secondary-surface: #FEF6EE;
 
-  --color-accent-water: #3B82A0;
-  --color-accent-sakura: #D4708F;
+  --color-accent-water: #2B7A78;
+  --color-accent-sakura: #C25975;
 
   /* --- Neutrals --- */
-  --color-bg: #FAFAF7;
-  --color-bg-alt: #F2F0EB;
+  --color-bg: #F8F9FA;
+  --color-bg-alt: #EFEFEA;
   --color-surface: #FFFFFF;
   --color-surface-elevated: #FFFFFF;
-  --color-border: #E0DDD6;
-  --color-border-light: #EDEBE6;
-  --color-text-primary: #1A1A18;
-  --color-text-secondary: #5C5C58;
-  --color-text-tertiary: #8A8A85;
+  --color-border: #DCE2E6;
+  --color-border-light: #EAEFF2;
+  --color-text-primary: #1A202C;
+  --color-text-secondary: #4A5568;
+  --color-text-tertiary: #718096;
   --color-text-inverse: #FFFFFF;
 
-  --color-success: #2DA06A;
-  --color-warning: #D99A4E;
-  --color-danger: #D4505A;
+  --color-success: #1F7A55;
+  --color-warning: #D9893E;
+  --color-danger: #C53030;
 
   /* --- Typography --- */
   --font-sans: 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -76,10 +76,10 @@
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* --- Certificate Colors --- */
-  --cert-bg: #FFFEF9;
-  --cert-border: #1B7A4E;
-  --cert-border-inner: #C17B2E;
-  --cert-text: #1A1A18;
+  --cert-bg: #FFFEFA;
+  --cert-border: #1E3A5F;
+  --cert-border-inner: #C07028;
+  --cert-text: #1A202C;
   --cert-gold: #B8860B;
   --cert-gold-light: #DAA520;
 }
